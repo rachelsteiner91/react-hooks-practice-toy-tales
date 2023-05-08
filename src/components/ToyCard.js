@@ -1,15 +1,16 @@
 import React from "react";
 
-function ToyCard() {
+//1c. After you have put the data in the proper component, your next job is to render the ToyCard components on the page
+function ToyCard({toy}) {
   return (
     <div className="card">
-      <h2>{"" /* Toy's Name */}</h2>
+      <h2>{toy.name}</h2>
       <img
-        src={"" /* Toy's Image */}
-        alt={"" /* Toy's Name */}
+        src={toy.image}
+        alt={toy.name}
         className="toy-avatar"
       />
-      <p>{"" /* Toy's Likes */} Likes </p>
+      <p>{toy.likes} Likes </p>
       <button className="like-btn">Like {"<3"}</button>
       <button className="del-btn">Donate to GoodWill</button>
     </div>
@@ -17,3 +18,5 @@ function ToyCard() {
 }
 
 export default ToyCard;
+
+//1c. your next job is to render the ToyCard components on the page
