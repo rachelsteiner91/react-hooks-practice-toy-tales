@@ -3,83 +3,56 @@ import React, {useState} from "react";
 function ToyForm({addToy}) {
 
   const initialForm = {
+    name: "",
     image: "",
-    likes: 0,
-    name: ""
+    likes: 0
   }
   const [form, setForm] = useState(initialForm)
-  /* 
-    MAKE FORM CONTROLLED
-    1. make state for form values
-    2. add state values as values in individual inputs
-    3. create onChaange to update state on input change 
-    4. onSubmit - POST REQUEST  
-  */
+//state describes the current state of something, the current state of our form. the current state of form is this blank slate below
+//we are updating an object, so it needs to be within {}.
+function handleChange(e) {
+  setForm({
+    ...form, //here I copied the object
+    [e.target.name] : e.target.value //name doesn;'t change but my value does change
+  
+  })}
 
-  //  const [name, setName] =useState("")
-  // const [image, setImage] = useState("")
-
-
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name] : e.target.value
-   
-     } )}
-
-
-  const handleFormSubmit =  (e) => {
-    e.preventDefault();
-
+  function handleSubmit(e)  {
+    e.preventDefault()
     fetch('http://localhost:3001/toys', {
       method: 'POST',
-    body: JSON.stringify(form),
-    headers: {'Content-Type': 'application/json'}
-    })
-    .then(res => res.json())
-    .then(data => {
+      body: JSON.stringify({...form}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+      })
+      .then (response => response.json())
+      .then ((data)=> {
+        addToy(data)
+        setForm(initialForm)
+      })
+    }
 
-      addToy(data)
-      setForm(initialForm)
-    })
-  }
-  //   addToy({
-  //     likes:0,
-  //     name: name,
-  //     image: image,
-  //   })
-  //   setName("")
-  //   setImage("")
-  // }
-  // useEffect(() => {
- //create post reqeust
-    
-// }
-// })
-// .then((res => res.json())
-// .then((data) => setToys(data))
   return (
     <div className="container">
-      <form onSubmit={(e) => handleFormSubmit(e)}className="add-toy-form">
+      <form onSubmit={(e) => handleSubmit(e)} className="add-toy-form">
         <h3>Create a toy!</h3>
         <input
           type="text"
           name="name"
-          value={form.name}
-          onChange={(e) => handleChange(e)}
-          // onChange={e => setName(e.target.value)}
           placeholder="Enter a toy's name..."
           className="input-text"
+          value={form.name}
+          onChange={(e) => handleChange(e)}
         />
         <br />
         <input
           type="text"
           name="image"
-          value={form.image}
-          onChange={(e) => handleChange(e)}
-          // onChange={e => setImage(e.target.value)}
           placeholder="Enter a toy's image URL..."
           className="input-text"
+          value={form.image}
+          onChange={(e) => handleChange(e)}
         />
         <br />
         <input
@@ -95,18 +68,14 @@ function ToyForm({addToy}) {
 
 export default ToyForm;
 
-// /* const [name, setName] =useState("")
-//   const [image, setImage] = useState("")
 
-//   const handleFormSubmit =  (e) => {
-//     e.preventDefault();
-//     addToy({
-//       likes:0,
-//       name: name,
-//       image: image,
-//     })
-//     setName("")
-//     setImage("")
-//   }
-//   useEffect(() => {
-//     console.log(name, image) */
+
+
+
+
+
+//1. set form state in form component
+
+//When the ToyForm is submitted
+//make a POST request to /toys 
+//to save a new toy to the server. Using the ideas of controlled form and inverse data flow, think about how to render a new ToyCard for the toy that you created.

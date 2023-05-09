@@ -1,6 +1,5 @@
 import React from "react";
 
-//1c. After you have put the data in the proper component, your next job is to render the ToyCard components on the page
 function ToyCard({toy}) {
   return (
     <div className="card">
@@ -19,4 +18,14 @@ function ToyCard({toy}) {
 
 export default ToyCard;
 
-//1c. your next job is to render the ToyCard components on the page
+
+
+//"id": 1,
+// "name": "Woody",
+// "image": "http://www.pngmart.com/files/3/Toy-Story-Woody-PNG-Photos.png",
+// "likes": 8
+
+
+
+
+
